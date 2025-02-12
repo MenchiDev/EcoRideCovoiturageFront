@@ -8,13 +8,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="scss/main.css" />
+    <link rel="stylesheet" href="styles/main.css" />
     <title>Document</title>
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm bg-secondary" >
+        <nav class="navbar navbar-expand-sm bg-secondary">
             <div class="container-fluid">
                 <a class="navbar-brand text-primary" href="#">EcoRide</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -42,9 +42,22 @@
     </header>
     <main id="main-page">
         <!-- le contenu de la page sera injecter ici -->
+         <button class="btn btn-primary">ceci est un bouton </button>
+         
     </main>
-    <footer>Le footer de mon site</footer>
-    <script type="module" src="Router/router.js"></script>
+    <footer class="bg-secondary text-primary text-center footer">
+        <div class="row">
+            <div class="col-12">
+                <p>E-mail ecovert@ecoride.fr</p>
+            </div>
+            <div class="col-12" >
+                <p>
+                    <a href="#">mentions légales</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script type="module" src="js/router.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
