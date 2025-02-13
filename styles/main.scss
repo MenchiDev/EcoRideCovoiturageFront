@@ -13,3 +13,42 @@ footer{
     bottom: 0;
     width: 100%;  
 }
+p{
+    font-family: $font-family-rubik;
+}
+
+.hero-scene{
+   
+    position: relative;
+    &::before{
+        content:"";
+        position: absolute;
+        top: 0;
+        left:0;
+        width: 100%;
+        height: 100%;
+        background-image: url(../images/BigTitleBg.png);
+        opacity: 0.9;
+        background-position: center;
+        background-size: 150%; /* Maximum zoomed out level */
+        background-size: cover;
+        
+        filter: brightness(0.5);
+    }
+    *{
+        position: relative;
+    }
+}
+.hero-scene-content{
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.hero-scene-content h1{
+    font-size: 1.6rem;
+    width: 880px;
+   
+}
