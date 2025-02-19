@@ -15,10 +15,11 @@ footer{
 }
 p{
     font-family: $font-family-rubik;
+    font-size: 18px;
+    
 }
-
+/* Scène principale avec une image de fond */
 .hero-scene{
-   
     position: relative;
     &::before{
         content:"";
@@ -27,28 +28,128 @@ p{
         left:0;
         width: 100%;
         height: 100%;
-        background-image: url(../images/BigTitleBg.png);
+        background-image: url(../images/BigTitle.png);
         opacity: 0.9;
         background-position: center;
-        background-size: 150%; /* Maximum zoomed out level */
+        background-size: 150%; /* Niveau de zoom maximum */
         background-size: cover;
-        
         filter: brightness(0.5);
     }
     *{
         position: relative;
     }
 }
+
+/* Contenu de la scène principale */
 .hero-scene-content{
     height: 140px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 }
+
+/* Titre dans la scène principale */
 .hero-scene-content h1{
-    font-size: 1.6rem;
-    width: 880px;
+    font-size: 28px; 
+}
+
+/* Section de bienvenue dans l'article */
+article .welcome{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Titre de la section de bienvenue */
+article .welcome h2{
+    margin-top: 30px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* Paragraphe de la section de bienvenue */
+article .welcome p{
+    font-size: 22px;
+    text-align: center;
+    max-width: 880px;
+    width: 100%;
+}
+ 
+ /* Conteneur principal de la barre de recherche */
+.search-bar {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap; /* Empêche la rupture en ligne */
+    align-items: center;
+    border: solid 2px $primary;
+    margin:10px 0 40px;
+    padding: 0%;
+}
+
+/* Chaque champ (Icône + Input) */
+
+
+/* Icône collée à l'input */
+.input-group-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 30px;
+    border-radius: 0;
+}
+
+/* Champ input collé à l'icône */
+.form-control {
+    height: 50px;
+    border-left: 0;
+    border-radius:0;
+}
+
+/* Sélecteur de date */
+.date-input {
+    height: 50px;
+    min-width: 120px; 
+    border-radius: 0;
    
 }
+
+/* Bouton de recherche collé aux autres */
+.btn-primary {
+    height: 50px;
+    border-radius: 0;
+    border: 2px solid $primary;
+    min-width: 140px; /* Empêche le bouton de se dilater excessivement */
+}
+.img{
+    opacity:0.8;
+}
+/*  Sur mobile : Passage en colonne de la barre de recherche  icône collée à l'input et ajustement de la taille du text*/
+@media (max-width: 768px) {
+    .hero-scene-content h1{
+        font-size: 22px; 
+    }
+   
+    .search-bar {
+       display: flex;
+       flex-direction: column;
+    }
+    .btn-primary {
+        width: 100%;  
+    }
+    p{
+        font-size: 16px;
+    }
+    article .welcome h2{
+        font-size: 20px;
+     
+    }
+    article .welcome p{
+        font-size: 18px;
+       
+    }
+   
+}
+
