@@ -51,7 +51,7 @@ p{
 
 /* Titre dans la scène principale */
 .hero-scene-content h1{
-    font-size: 28px; 
+    font-size: 36px; 
 }
 
 /* Section de bienvenue dans l'article */
@@ -60,11 +60,11 @@ article .welcome{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 30px;
 }
 
 /* Titre de la section de bienvenue */
 article .welcome h2{
-    margin-top: 30px;
     font-size: 24px;
     font-weight: 600;
 }
@@ -84,7 +84,7 @@ article .welcome p{
     flex-wrap: nowrap; /* Empêche la rupture en ligne */
     align-items: center;
     border: solid 2px $primary;
-    margin:10px 0 40px;
+    margin:20px 0 40px;
     padding: 0%;
 }
 
