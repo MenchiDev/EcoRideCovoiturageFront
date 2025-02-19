@@ -88,7 +88,7 @@ article .welcome p{
     padding: 0%;
 }
 
-/* Chaque champ (Icône + Input) */
+
 
 
 /* Icône collée à l'input */
@@ -98,14 +98,22 @@ article .welcome p{
     justify-content: center;
     height: 50px;
     width: 30px;
-    border-radius: 0;
+    border-radius:0;
 }
 
-/* Champ input collé à l'icône */
-.form-control {
+//** Couleur de fond et bordure des inputs du formulaire connexion et inscription **//
+.form-input{
     height: 50px;
-    border-left: 0;
-    border-radius:0;
+    border: 1px solid $primary;
+    background-color: white;
+
+}
+.form-label{
+    color:$primary;
+}
+/** brder-radius de 0 pour les inputs du formulaire de la page d'accueil */
+.radius{
+    border-radius: 0;
 }
 
 /* Sélecteur de date */
@@ -126,6 +134,8 @@ article .welcome p{
 .img{
     opacity:0.8;
 }
+
+
 /*  Sur mobile : Passage en colonne de la barre de recherche  icône collée à l'input et ajustement de la taille du text*/
 @media (max-width: 768px) {
     .hero-scene-content h1{

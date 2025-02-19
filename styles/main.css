@@ -204,6 +204,7 @@ body {
   text-align: var(--bs-body-text-align);
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
@@ -428,6 +429,7 @@ caption {
 th {
   text-align: inherit;
   text-align: -webkit-match-parent;
+  text-align: match-parent;
 }
 
 thead,
@@ -489,6 +491,10 @@ button,
 [type=reset],
 [type=submit] {
   -webkit-appearance: button;
+  appearance: button;
+  appearance: button;
+  appearance: button;
+  appearance: button;
 }
 button:not(:disabled),
 [type=button]:not(:disabled),
@@ -546,6 +552,7 @@ legend + * {
 
 [type=search] {
   -webkit-appearance: textfield;
+  appearance: textfield;
   outline-offset: -2px;
 }
 
@@ -568,6 +575,8 @@ legend + * {
 ::file-selector-button {
   font: inherit;
   -webkit-appearance: button;
+  -webkit-appearance: none;
+appearance: none;
 }
 
 output {
@@ -2045,37 +2054,31 @@ progress {
 
 .table-responsive {
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
 @media (max-width: 575.98px) {
   .table-responsive-sm {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
   }
 }
 @media (max-width: 767.98px) {
   .table-responsive-md {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
   }
 }
 @media (max-width: 991.98px) {
   .table-responsive-lg {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
   }
 }
 @media (max-width: 1199.98px) {
   .table-responsive-xl {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
   }
 }
 @media (max-width: 1399.98px) {
   .table-responsive-xxl {
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
   }
 }
 .form-label {
@@ -12057,7 +12060,6 @@ article .welcome p {
   padding: 0%;
 }
 
-/* Chaque champ (Icône + Input) */
 /* Icône collée à l'input */
 .input-group-text {
   display: flex;
@@ -12068,10 +12070,18 @@ article .welcome p {
   border-radius: 0;
 }
 
-/* Champ input collé à l'icône */
-.form-control {
+.form-input {
   height: 50px;
-  border-left: 0;
+  border: 1px solid #064652;
+  background-color: white;
+}
+
+.form-label {
+  color: #064652;
+}
+
+/** brder-radius de 0 pour les inputs du formulaire de la page d'accueil */
+.radius {
   border-radius: 0;
 }
 
