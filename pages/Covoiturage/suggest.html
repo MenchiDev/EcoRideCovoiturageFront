@@ -1,0 +1,90 @@
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Proposer un Trajet</h2>
+
+        <form id="tripForm">
+            <div class="mb-3">
+                <label class="form-label">Point de départ</label>
+                <input type="text" class="form-control" id="departure" placeholder="Ex : Paris" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Destination</label>
+                <input type="text" class="form-control" id="destination" placeholder="Ex : Lyon" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Date et Heure de départ</label>
+                <input type="datetime-local" class="form-control" id="dateTime" title="Date et Heure de départ" placeholder="Sélectionnez la date et l'heure" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Prix par passager (€)</label>
+                <input type="number" class="form-control" id="price" min="1" placeholder="Ex : 25" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Nombre de places disponibles</label>
+                <input type="number" class="form-control" id="seats" min="1" placeholder="Ex : 3" required>
+            </div>
+
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="ecoTrip">
+                <label class="form-check-label" for="ecoTrip">Voyage écologique (voiture électrique)</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Proposer le trajet</button>
+        </form>
+
+        <!-- Modal de confirmation -->
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="successModalLabel">Trajet Proposé</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Votre trajet a été proposé avec succès !</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("tripForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Empêcher le rechargement de la page
+
+            // Récupération des valeurs
+            let departure = document.getElementById("departure").value;
+            let destination = document.getElementById("destination").value;
+            let dateTime = document.getElementById("dateTime").value;
+            let price = document.getElementById("price").value;
+            let seats = document.getElementById("seats").value;
+            let ecoTrip = document.getElementById("ecoTrip").checked ? "Oui" : "Non";
+
+            if (departure && destination && dateTime && price && seats) {
+                console.log("Trajet proposé :", {
+                    "Départ": departure,
+                    "Destination": destination,
+                    "Date et Heure": dateTime,
+                    "Prix": price + "€",
+                    "Places disponibles": seats,
+                    "Voyage écologique": ecoTrip
+                });
+
+                // Afficher la confirmation dans le modal
+                var successModal = new bootstrap.Modal(document.getElementById("successModal"));
+                successModal.show();
+
+                // Réinitialiser le formulaire après soumission
+                document.getElementById("tripForm").reset();
+            } else {
+                alert("Veuillez remplir tous les champs.");
+            }
+        });
+    </script>

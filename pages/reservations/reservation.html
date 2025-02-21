@@ -1,0 +1,57 @@
+<!-- Contenu principal -->
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Mes Réservations</h2>
+
+    <!-- Exemple de réservation -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="https://via.placeholder.com/50" class="rounded-circle me-2" alt="Conducteur">
+                        <div>
+                            <h5 class="card-title mb-0">🚗 Jean Dupont</h5>
+                            <small>⭐ 4.8</small>
+                        </div>
+                    </div>
+                    <p><strong>Départ :</strong> 20/02/2024 à 08:00</p>
+                    <p><strong>Arrivée :</strong> 20/02/2024 à 12:00</p>
+                    <p><strong>Prix :</strong> 25 €</p>
+                    <p><strong>Statut :</strong> <span id="status-1" class="text-success">Confirmée ✅</span></p>
+                    <button id="btn-annuler-1" class="btn btn-danger" onclick="annulerReservation(1)">Annuler</button>
+                    <a href="details.html" class="btn btn-primary">Détails</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="https://via.placeholder.com/50" class="rounded-circle me-2" alt="Conducteur">
+                        <div>
+                            <h5 class="card-title mb-0">🚗 Marie Curie</h5>
+                            <small>⭐ 4.5</small>
+                        </div>
+                    </div>
+                    <p><strong>Départ :</strong> 25/02/2024 à 10:00</p>
+                    <p><strong>Arrivée :</strong> 25/02/2024 à 14:00</p>
+                    <p><strong>Prix :</strong> 30 €</p>
+                    <p><strong>Statut :</strong> <span id="status-2" class="text-success">Confirmée ✅</span></p>
+                    <button id="btn-annuler-2" class="btn btn-danger" onclick="annulerReservation(2)">Annuler</button>
+                    <a href="details.html" class="btn btn-primary">Détails</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function annulerReservation(id) {
+        let confirmation = confirm("Voulez-vous vraiment annuler cette réservation ?");
+        if (confirmation) {
+            document.getElementById("status-" + id).innerText = "Annulée ❌";
+            document.getElementById("btn-annuler-" + id).disabled = true;
+            alert("Votre réservation a été annulée.");
+        }
+    }
+</script>

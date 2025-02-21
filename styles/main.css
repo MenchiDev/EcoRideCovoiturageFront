@@ -495,6 +495,7 @@ button,
   appearance: button;
   appearance: button;
   appearance: button;
+  appearance: button;
 }
 button:not(:disabled),
 [type=button]:not(:disabled),
@@ -575,8 +576,7 @@ legend + * {
 ::file-selector-button {
   font: inherit;
   -webkit-appearance: button;
-  -webkit-appearance: none;
-appearance: none;
+  appearance: button;
 }
 
 output {
@@ -11975,7 +11975,7 @@ html {
 }
 
 main {
-  margin-bottom: 115px;
+  margin-bottom: 140px;
 }
 
 footer {
@@ -12093,7 +12093,7 @@ article .welcome p {
 }
 
 /* Bouton de recherche collé aux autres */
-.btn-primary {
+.btn-modified {
   height: 50px;
   border-radius: 0;
   border: 2px solid #064652;

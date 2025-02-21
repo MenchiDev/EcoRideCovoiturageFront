@@ -11,15 +11,15 @@
         </div>
     </article>
 
-    <form class="container form">
-        <div class="search-bar  rounded">
+    <form class="container">
+        <div class="search-bar  rounded ">
 
             <!-- Champ de départ -->
             <div class="input-group ">
                 <span class="input-group-text rounded-start">
                     <i class="bi bi-geo-alt text-primary"></i>
                 </span>
-                <input type="text" class="form-control" placeholder="Départ">
+                <input type="text" class="form-control radius" placeholder="Départ">
             </div>
 
             <!-- Champ de destination -->
@@ -27,7 +27,7 @@
                 <span class="input-group-text">
                     <i class="bi bi-geo-alt-fill text-primary"></i>
                 </span>
-                <input type="text" class="form-control" placeholder="Destination">
+                <input type="text" class="form-control radius" placeholder="Destination">
             </div>
 
             <!-- Sélecteur de date avec label -->
@@ -39,18 +39,79 @@
             </div>
 
             <!-- Bouton de recherche -->
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary btn-modified">
                 <i class="bi bi-search"></i> Rechercher
             </button>
         </div>
-    </form>
+</form>
     <!-- Bouton "Proposer un trajet" -->
     <section class="bg-light py-4">
         <div class="container text-center bg-light ">
             <h3>Vous êtes conducteur ?</h3>
-            <a href="#" class="btn btn-primary rounded mt-3">Proposer un trajet</a>
+            <a href="/suggest" class="btn btn-primary rounded mt-3">Proposer un trajet</a>
         </div>
     </section>
+    <!--Section resultats-->
+    <!-- Bouton et Modal de filtres -->
+    <button class="btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#filterModal">Filtres</button>
+        
+    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterModalLabel">Filtres</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Prix maximum</label>
+                            <input type="number" class="form-control" placeholder="Ex : 50">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Durée maximale du voyage (heures)</label>
+                            <input type="number" class="form-control" placeholder="Ex : 4">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Note minimale du conducteur</label>
+                            <input type="number" class="form-control" step="0.1" min="1" max="5" placeholder="Ex : 4.5">
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="ecologique">
+                            <label class="form-check-label" for="ecologique">Voyage écologique (voiture électrique)</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Appliquer les filtres</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Résultats de recherche -->
+    <h2 class="text-center mb-3">Résultats</h2>
+    <div class="row">
+        <!-- Exemple d'itinéraire -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="https://via.placeholder.com/50" class="rounded-circle me-2" alt="Photo du conducteur">
+                        <div>
+                            <h5 class="card-title mb-0">Jean Dupont</h5>
+                            <small>⭐ 4.8</small>
+                        </div>
+                    </div>
+                    <p><strong>Places restantes :</strong> 2</p>
+                    <p><strong>Prix :</strong> 25 €</p>
+                    <p><strong>Départ :</strong> 12/02/2024 à 08:00</p>
+                    <p><strong>Arrivée :</strong> 12/02/2024 à 12:00</p>
+                    <p><strong>Voyage écologique :</strong> ✅</p>
+                    <a href="details" class="btn btn-primary">Détails</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
    
     <!--Présentation du service -->
     <section class="container text-center my-5">
@@ -137,7 +198,7 @@
     </section>
 
     <!--Section FAQ et Contact -->
-    <section class="bg-light py-5">
+    <section class="bg-light py-3">
         <div class="container">
             <h3 class="text-center">Foire aux Questions</h3>
             <div class="accordion mt-4" id="faqAccordion">

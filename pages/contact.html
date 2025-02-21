@@ -1,0 +1,75 @@
+
+    <script>
+        function validerFormulaire(event) {
+            event.preventDefault(); // Empêche l'envoi immédiat
+
+            let nom = document.getElementById("nom").value;
+            let email = document.getElementById("email").value;
+            let sujet = document.getElementById("sujet").value;
+            let message = document.getElementById("message").value;
+
+            if (nom === "" || email === "" || sujet === "" || message === "") {
+                alert("Veuillez remplir tous les champs.");
+                return false;
+            }
+
+            if (!email.includes("@")) {
+                alert("Veuillez entrer une adresse e-mail valide.");
+                return false;
+            }
+
+            alert("Votre message a été envoyé avec succès !");
+            document.getElementById("contactForm").reset(); // Réinitialise le formulaire
+            return true;
+        }
+    </script>
+
+
+    
+    <!-- Contenu principal -->
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">📩 Contactez-nous</h2>
+        
+        <div class="row">
+            <!-- Formulaire de contact -->
+            <div class="col-md-6">
+                <form id="contactForm" onsubmit="validerFormulaire(event)">
+                    <div class="mb-3">
+                        <label for="nom" class="form-label">Nom</label>
+                        <input type="text" class="form-control" id="nom" placeholder="Votre nom">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Votre email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="sujet" class="form-label">Sujet</label>
+                        <input type="text" class="form-control" id="sujet" placeholder="Objet du message">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" rows="4" placeholder="Votre message"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Envoyer</button>
+                </form>
+            </div>
+
+            <!-- Coordonnées et carte -->
+            <div class="col-md-6">
+                <h4>📍 Notre adresse</h4>
+                <p>123 Rue du Covoiturage, 75000 Paris, France</p>
+                <h4>📞 Téléphone</h4>
+                <p>+33 1 23 45 67 89</p>
+                <h4>📧 Email</h4>
+                <p>support@covoiturage.com</p>
+
+                <!-- Carte Google Maps -->
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.999996780306!2d2.2944813156746756!3d48.8588445792871!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66fbd9b0e6b69%3A0xa0b5e73bc48b4e49!2sTour%20Eiffel!5e0!3m2!1sfr!2sfr!4v1614602374829!5m2!1sfr!2sfr" 
+                    width="100%" height="250" class="map-iframe" allowfullscreen="" title="Google Maps">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+  

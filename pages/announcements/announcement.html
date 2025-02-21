@@ -1,0 +1,68 @@
+
+   
+    <script>
+        function confirmerSuppression(id) {
+            if (confirm("Voulez-vous vraiment annuler ce trajet ? Un remboursement sera effectué selon les conditions.")) {
+                document.getElementById("trajet-" + id).remove();
+                alert("Trajet annulé avec succès et remboursement effectué !");
+            }
+        }
+
+        function modifierTrajet(id) {
+            document.getElementById("edit-form-" + id).classList.toggle("d-none");
+        }
+    </script>
+
+    <div class="container mt-3">
+        <h2 class="text-center mb-4">📢 Mes Annonces</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6 d-flex w-25" id="trajet-1">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">🚗 Paris → Lyon</h5>
+                        <p><strong>Date :</strong> 25/02/2024 à 08:00</p>
+                        <p><strong>Places restantes :</strong> 2 / 3</p>
+                        <p><strong>Prix :</strong> 30 €</p>
+                        <p><strong>Passagers inscrits :</strong> <br> - Alice Dupont (⭐ 4.5) <br> - Marc Lefebvre (⭐ 4.8)</p>
+                        <button class="btn btn-warning btn-sm" onclick="modifierTrajet(1)">✏️ Modifier</button>
+                        <button class="btn btn-danger btn-sm" onclick="confirmerSuppression(1)">❌ Annuler</button>
+                        <a href="mailto:passager@example.com" class="btn btn-info btn-sm mt-3">📩 Contacter les passagers</a>
+                        <form id="edit-form-1" class="d-none mt-3">
+                            <label>Modifier le prix :</label>
+                            <input type="number" class="form-control mb-2" value="30" title="Modifier le prix" placeholder="Entrez le nouveau prix">
+                            <label>Modifier l'heure :</label>
+                            <input type="time" class="form-control mb-2" value="08:00" title="Modifier l'heure" placeholder="Entrez la nouvelle heure">
+                            <button type="button" class="btn btn-success btn-sm">💾 Enregistrer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 d-flex w-25 " id="trajet-2">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">🚗 Marseille → Nice</h5>
+                        <p><strong>Date :</strong> 28/02/2024 à 14:30</p>
+                        <p><strong>Places restantes :</strong> 1 / 4</p>
+                        <p><strong>Prix :</strong> 20 €</p>
+                        <p><strong>Passagers inscrits :</strong> <br> - Sophie Martin (⭐ 5.0) <br> - Thomas Durand (⭐ 4.6) <br> - Emma Rolland (⭐ 4.7)</p>
+                        <button class="btn btn-warning btn-sm" onclick="modifierTrajet(2)">✏️ Modifier</button>
+                        <button class="btn btn-danger btn-sm" onclick="confirmerSuppression(2)">❌ Annuler</button>
+                        <a href="mailto:passager@example.com" class="btn btn-info btn-sm mt-3">📩 Contacter les passagers</a>
+                        <form id="edit-form-2" class="d-none mt-3">
+                            <label>Modifier le prix :</label>
+                            <input type="number" class="form-control mb-2" value="20" title="Modifier le prix" placeholder="Entrez le nouveau prix">
+                            <label>Modifier l'heure :</label>
+                            <input type="time" class="form-control mb-2" value="14:30" title="Modifier l'heure" placeholder="Entrez la nouvelle heure">
+                            <button type="button" class="btn btn-success btn-sm">💾 Enregistrer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center ">
+            <a href="suggest" class="btn btn-primary">➕ Proposer un nouveau trajet</a>
+        </div>
+    </div>
+
+

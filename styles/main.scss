@@ -5,7 +5,7 @@ html{
     min-height: 100%;
 }
 main{
-    margin-bottom: 115px;
+    margin-bottom: 140px;
 }
 footer{
     padding: 15px;
@@ -125,7 +125,7 @@ article .welcome p{
 }
 
 /* Bouton de recherche collé aux autres */
-.btn-primary {
+.btn-modified {
     height: 50px;
     border-radius: 0;
     border: 2px solid $primary;
@@ -134,6 +134,10 @@ article .welcome p{
 .img{
     opacity:0.8;
 }
+
+
+
+
 
 
 /*  Sur mobile : Passage en colonne de la barre de recherche  icône collée à l'input et ajustement de la taille du text*/
