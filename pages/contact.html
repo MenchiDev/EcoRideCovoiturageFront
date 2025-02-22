@@ -1,31 +1,4 @@
-
-    <script>
-        function validerFormulaire(event) {
-            event.preventDefault(); // Empêche l'envoi immédiat
-
-            let nom = document.getElementById("nom").value;
-            let email = document.getElementById("email").value;
-            let sujet = document.getElementById("sujet").value;
-            let message = document.getElementById("message").value;
-
-            if (nom === "" || email === "" || sujet === "" || message === "") {
-                alert("Veuillez remplir tous les champs.");
-                return false;
-            }
-
-            if (!email.includes("@")) {
-                alert("Veuillez entrer une adresse e-mail valide.");
-                return false;
-            }
-
-            alert("Votre message a été envoyé avec succès !");
-            document.getElementById("contactForm").reset(); // Réinitialise le formulaire
-            return true;
-        }
-    </script>
-
-
-    
+ 
     <!-- Contenu principal -->
     <div class="container mt-5">
         <h2 class="text-center mb-4">📩 Contactez-nous</h2>

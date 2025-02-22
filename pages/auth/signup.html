@@ -1,4 +1,3 @@
-
 <div class="hero-scene text-center text-white mb-4">
 
     <div class="hero-scene-content">
@@ -11,28 +10,49 @@
             <form class="border rounded p-4 bg-light">
                 <div class="mb-3">
                     <label for="NomInput" class="form-label">Nom</label>
-                    <input type="text" class="form-control form-input" id="NomInput" placeholder="Votre nom" name="Nom"> 
+                    <input type="text" class="form-control form-input" id="NomInput" placeholder="Votre nom" name="Nom">
+                    <div class="invalid-feedback">
+                        le nom est requis
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="PrenomInput" class="form-label">Prénom</label>
-                    <input type="text" class="form-control form-input " id="PrenomInput" placeholder="Votre prénom" name="Prenom"> 
+                    <input type="text" class="form-control form-input " id="PrenomInput" placeholder="Votre prénom"
+                        name="Prenom">
+                    <div class="invalid-feedback">
+                        le prenom est requis
+                    </div>
                 </div>
                 <div class="mb-3 text-primary ">
                     <label for="EmailInput" class="form-label">Email</label>
-                    <input type="email" class="form-control form-input " id="EmailInput"
-                        placeholder="test@mail.fr" name="Email">
+                    <input type="email" class="form-control form-input " id="EmailInput" placeholder="test@mail.fr"
+                        name="Email">
+                    <div class="invalid-feedback">
+                        le mail n'est pas valide
+                    </div>
                 </div>
                 <div class="mb-3 text-primary">
                     <label for="PasswordInput" class="form-label">Mot de passe</label>
-                    <input type="password" class="form-control form-input" id="PasswordInput"
-                        name="Password">
+                    <input type="password" class="form-control form-input" id="PasswordInput" name="Password">
+                    <div class="invalid-feedback">
+                        Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et
+                        un caractère spécial.
+                    </div>
+                    <div class="valid-feedback">
+                        Le mot de passe est valide
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="ValidatePasswordInput" class="form-label">Validez votre mot de passe</label>
-                    <input type="password" class="form-control form-input" id="ValidatePasswordInput" name="PasswordConfirm">
+                    <label for="ValidatePasswordInput" class="form-label">Confirmez votre mot de passe</label>
+                    <input type="password" class="form-control form-input" id="ValidatePasswordInput"
+                        name="PasswordConfirm">
+                    <div class = "invalid-feedback">
+                        La confirmation du mot de passe est incorrecte
+                    </div>
                 </div>
                 <div class="text-center ">
-                    <button type="submit" class="btn btn-primary rounded mt-3">Inscription</button>
+                    <button type="submit" class="btn btn-primary rounded mt-3"
+                        id="btn-validation-inscription">Inscription</button>
                 </div>
             </form>
             <div class="text-center pt-3 mb-4 ">
@@ -41,4 +61,3 @@
         </div>
     </div>
 </div>
-

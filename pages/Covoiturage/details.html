@@ -15,12 +15,12 @@
                                 <small>⭐ 4.8</small>
                             </div>
                         </div>
-                        <p><strong>Places restantes :</strong> <span id="seatsRemainingDisplay">1</span></p>
+                        <p><strong>Places restantes :</strong> <span id="seatsRemainingDisplay">3</span></p>
                         <p><strong>Prix :</strong> 25 €</p>
                         <p><strong>Départ :</strong> 12/02/2024 à 08:00</p>
                         <p><strong>Arrivée :</strong> 12/02/2024 à 12:00</p>
                         <p><strong>Voyage écologique :</strong> ✅</p>
-                        <button id="participateBtn" class="btn btn-success" onclick="checkParticipation()">Participer</button>
+                        <button id="participateBtn" class="btn btn-success" onclick="checkParticipation()">Réserver</button>
                     </div>
                 </div>
             </div>
@@ -50,67 +50,4 @@
             <p><strong>Crédits restants :</strong> <span id="creditAmountDisplay">30</span></p>
         </div>
     </div>
-    <script>
-        // Données utilisateur et voyage simulées
-        let user = {
-            loggedIn: false,  // Utilisateur connecté ou non
-            credits: 30       // Crédits disponibles pour l'utilisateur
-        };
-
-        let trip = {
-            availableSeats: 1,  // Places restantes dans le trajet
-            creditRequired: 10  // Crédits nécessaires pour participer
-        };
-
-        // Fonction pour vérifier si l'utilisateur peut participer
-        function checkParticipation() {
-            // Vérification si l'utilisateur est connecté
-            if (!user.loggedIn) {
-                alert("Veuillez vous connecter ou créer un compte pour participer !");
-                // Rediriger vers la page de connexion (utiliser un lien réel ici)
-                window.location.href = "login.html";
-                return;
-            }
-
-            // Vérification des conditions
-            if (trip.availableSeats <= 0) {
-                alert("Aucune place disponible !");
-                return;
-            }
-
-            if (user.credits < trip.creditRequired) {
-                alert("Crédits insuffisants !");
-                return;
-            }
-
-            // Affichage du modal de confirmation
-            document.getElementById("creditAmount").innerText = trip.creditRequired;
-            new bootstrap.Modal(document.getElementById("confirmationModal")).show();
-        }
-
-        // Fonction de confirmation de participation
-        function confirmParticipation() {
-            // Mise à jour des crédits et des places disponibles
-            user.credits -= trip.creditRequired;  // Déduction des crédits
-            trip.availableSeats--;  // Réduction du nombre de places
-
-            // Simuler l'enregistrement de la participation et la mise à jour
-            alert("Vous avez bien été inscrit au covoiturage !");
-            console.log("Crédits restants:", user.credits);
-            console.log("Places restantes:", trip.availableSeats);
-
-            // Fermer le modal
-            new bootstrap.Modal(document.getElementById("confirmationModal")).hide();
-
-            // Mise à jour de l'interface utilisateur
-            updateUI();
-        }
-
-        // Fonction pour mettre à jour l'interface utilisateur
-        function updateUI() {
-            // Met à jour l'affichage des crédits et des places restantes
-            document.getElementById("creditAmountDisplay").innerText = `Crédits restants: ${user.credits}`;
-            document.getElementById("seatsRemainingDisplay").innerText = `Places disponibles: ${trip.availableSeats}`;
-        }
-    </script>
-
+   
