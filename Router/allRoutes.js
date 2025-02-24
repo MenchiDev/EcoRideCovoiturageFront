@@ -6,12 +6,13 @@ export const allRoutes = [
     new Route("/covoiturage", "Covoiturage", "/pages/Covoiturage/covoiturage.html",[],"/js/Covoiturage/covoiturage.js"),
     new Route("/details", "detailTrajet", "/pages/Covoiturage/details.html",[], "/js/Covoiturage/details.js"),
     new Route("/suggest", "Covoiturage", "/pages/Covoiturage/suggest.html",[],"/js/Covoiturage/suggest.js"),
-    new Route("/reservation", "les reservation", "/pages/reservations/reservation.html",["client"]),
+    new Route("/reservation", "les reservation", "/pages/reservations/reservation.html",["passager"]),
     new Route("/signin", "connexion", "/pages/auth/signin.html", ["disconnected"], "/js/auth/signin.js"),
     new Route("/signup", "inscription", "/pages/auth/signup.html",["disconnected"], "/js/auth/signup.js"),
-    new Route("/account", "monCompte", "/pages/auth/account.html",["admin", "client"]),
     new Route("/contact", "contact", "/pages/contact.html",[], "/js/contact.js"),
-    new Route("/announcement", "mes annonces", "/pages/announcements/announcement.html", ["client"]),
+    new Route("/announcement", "mes annonces", "/pages/announcements/announcement.html", ["conducteur"]),
+    new Route("/profile", "mon compte ","/pages/profile.html", ["passager","conducteur"], "/js/profile.js"),
+    new Route("/employe", "espace employe", "/pages/employe.html", ["employe"], "/js/employe.js"),
 ];
 
 //Le titre s'affiche comme ceci : Route.titre - websitename

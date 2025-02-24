@@ -6,6 +6,9 @@ const creditAmount = document.getElementById('creditAmount');
 const seatsRemainingDisplay = document.getElementById('seatsRemainingDisplay');
 const tripDetails = document.querySelector('.card-body'); // Sélectionne la div contenant les détails du voyage
 
+// un utilisateur disconnected ne peut pas résérvé un trajet
+participateBtn.addEventListener("click", accesse);
+
 // Variables pour stocker les données (simulées pour l'exemple)
 let seatsRemaining = parseInt(seatsRemainingDisplay.textContent);
 let creditBalance = parseInt(creditAmountDisplay.textContent);

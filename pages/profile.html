@@ -1,0 +1,82 @@
+<div class="container mt-5">
+    <h2 class="text-center">Mon espace</h2>
+
+    <!-- Affichage des crédits -->
+    <div class="text-end mb-3">
+        <strong>Crédits disponibles : <span id="credit-count">10</span> 🔵</strong>
+    </div>
+
+    <form id="trajetForm">
+        <!-- Sélection du rôle -->
+        <div class="mb-3">
+            <label for="role" class="form-label">Sélectionnez votre rôle</label>
+            <select class="form-select" id="role" required>
+                <option value="">Choisissez votre rôle</option>
+                <option value="chauffeur">Chauffeur</option>
+                <option value="passager">Passager</option>
+                <option value="chauffeur-passager">Chauffeur et Passager</option>
+            </select>
+        </div>
+
+        <!-- Sélection du véhicule -->
+        <div class="mb-3" id="vehicule-section" style="display:none;">
+            <label for="vehicule" class="form-label">Véhicule</label>
+            <div class="input-group">
+                <select class="form-select" id="vehicule">
+                    <option value="">Sélectionner un véhicule</option>
+                </select>
+                <button type="button" class="btn btn-success" id="add-vehicule-btn">Véhicule +</button>
+            </div>
+        </div>
+
+        <!-- Champ caché pour ajouter un véhicule -->
+        <div id="add-vehicule-section" class="mb-3 d-none">
+            <label for="vehicule-marque" class="form-label">Marque</label>
+            <input type="text" class="form-control" id="vehicule-marque" placeholder="Marque">
+
+            <label for="vehicule-modele" class="form-label">Modèle</label>
+            <input type="text" class="form-control" id="vehicule-modele" placeholder="Modèle">
+
+            <label for="vehicule-immatriculation" class="form-label">Immatriculation</label>
+            <input type="text" class="form-control" id="vehicule-immatriculation" placeholder="Immatriculation">
+
+            <label for="vehicule-date" class="form-label">Date de mise en circulation</label>
+            <input type="date" class="form-control" id="vehicule-date">
+
+            <label for="vehicule-couleur" class="form-label">Couleur</label>
+            <input type="text" class="form-control" id="vehicule-couleur" placeholder="Couleur">
+
+            <button type="button" class="btn btn-primary mt-2" id="save-vehicule-btn">Ajouter</button>
+            <button type="button" class="btn btn-secondary mt-2" id="cancel-vehicule-btn">Annuler</button>
+        </div>
+
+        <!-- Message d'information sur les crédits -->
+        <div class="mb-3" id="credit-info-section" style="display:none;">
+            <p>2 crédits seront déduits pour la publication du trajet.</p>
+        </div>
+
+        <!-- Bouton Publier -->
+        <button type="button" class="btn btn-primary w-100 mt-3" id="publish-btn" onclick="location.href='/suggest'" disabled>Publier un trajet</button>
+    </form>
+    <!-- Historique des trajets -->
+<div class="container mt-5">
+    <h3 class="text-center">Historique des trajets</h3>
+
+    <!-- Historique des réservations -->
+    <div class="mt-3">
+        <h5>Réservations effectuées</h5>
+        <ul id="reservation-history" class="list-group">
+            <li class="list-group-item text-muted">Aucune réservation effectuée.</li>
+        </ul>
+    </div>
+
+    <!-- Historique des publications -->
+    <div class="mt-3">
+        <h5>Trajets publiés</h5>
+        <ul id="publication-history" class="list-group">
+            <li class="list-group-item text-muted">Aucun trajet publié.</li>
+        </ul>
+    </div>
+</div>
+
+</div>

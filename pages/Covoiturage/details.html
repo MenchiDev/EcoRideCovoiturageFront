@@ -1,53 +1,80 @@
+aa<div class="container mt-5">
+    <h2 class="text-center mb-3">Détails du voyage</h2>
 
-
-    <div class="container mt-5">
-        <h2 class="text-center mb-3">Détails du voyage</h2>
-
-        <!-- Informations sur le voyage -->
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-2">
-                            <img src="https://via.placeholder.com/50" class="rounded-circle me-2" alt="Photo du conducteur">
-                            <div>
-                                <h5 class="card-title mb-0">Jean Dupont</h5>
-                                <small>⭐ 4.8</small>
-                            </div>
+    <!-- Informations sur le voyage -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="https://via.placeholder.com/50" class="rounded-circle me-2" alt="Photo du conducteur">
+                        <div>
+                            <h5 class="card-title mb-0">Jean Dupont</h5>
+                            <small>⭐ 4.8</small>
                         </div>
-                        <p><strong>Places restantes :</strong> <span id="seatsRemainingDisplay">3</span></p>
-                        <p><strong>Prix :</strong> 25 €</p>
-                        <p><strong>Départ :</strong> 12/02/2024 à 08:00</p>
-                        <p><strong>Arrivée :</strong> 12/02/2024 à 12:00</p>
-                        <p><strong>Voyage écologique :</strong> ✅</p>
-                        <button id="participateBtn" class="btn btn-success" onclick="checkParticipation()">Réserver</button>
                     </div>
+                    <p><strong>Places restantes :</strong> <span id="seatsRemainingDisplay">3</span></p>
+                    <p><strong>Prix :</strong> 25 €</p>
+                    <p><strong>Départ :</strong> 12/02/2024 à 08:00</p>
+                    <p><strong>Arrivée :</strong> 12/02/2024 à 12:00</p>
+                    <p><strong>Voyage écologique :</strong> ✅</p>
+                    <!-- Informations sur le véhicule -->
+                    <div class="mb-3">
+                        <p><strong>Véhicule :</strong> Peugeot 208 (Électrique ⚡)</p>
+                    </div>
+                    <!-- Préférences de voyage -->
+                    <div class="mb-3">
+                        <p><strong>Préférences du conducteur :</strong></p>
+                        <ul class="list-unstyled">
+                            <li>🚭 Non-fumeur</li>
+                            <li>🐶 Animaux acceptés</li>
+                            <li>🎶 Musique autorisée</li>
+                            <li>💬 Discussions agréables</li>
+                        </ul>
+                    </div>
+
+                    <!-- Avis sur le conducteur -->
+                    <div class="mb-3">
+                        <p><strong>Avis :</strong></p>
+                        <ul class="list-unstyled">
+                            <li>✅ "Très ponctuel et sympa !" - Marie</li>
+                            <li>✅ "Voiture propre et confortable" - Lucas</li>
+                            <li>✅ "Super discussion pendant le trajet !" - Sophie</li>
+                        </ul>
+                        <a href="#" class="text-primary">Voir tous les avis</a>
+                    </div>
+
+
+                    <button id="participateBtn" class="btn btn-success" onclick="checkParticipation()">Réserver</button>
+
                 </div>
             </div>
-        </div>
-
-        <!-- Modal de Confirmation -->
-        <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Voulez-vous vraiment utiliser <span id="creditAmount"></span> crédits pour participer à ce covoiturage ?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <button type="button" class="btn btn-primary" onclick="confirmParticipation()">Confirmer</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Affichage des crédits restants -->
-        <div class="mt-3">
-            <p><strong>Crédits restants :</strong> <span id="creditAmountDisplay">30</span></p>
         </div>
     </div>
-   
+
+    <!-- Modal de Confirmation -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Voulez-vous vraiment utiliser <span id="creditAmount"></span> crédits pour participer à ce
+                        covoiturage ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary" onclick="confirmParticipation()">Confirmer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Affichage des crédits restants -->
+    <div class="mt-3">
+        <p><strong>Crédits restants :</strong> <span id="creditAmountDisplay">30</span></p>
+    </div>
+</div>

@@ -56,38 +56,42 @@ function isConnected() {
     }
 }
 
-/*
-disconnected
-connected (admin ou client)
-     - admin 
-     -client
- */
 function showAndHideElementsForRoles() {
     const userConnected = isConnected();
     const role = getRole();
 
     let allElementsToEdit = document.querySelectorAll('[data-show]');
-    
+
 
     allElementsToEdit.forEach(element => {
         switch (element.dataset.show) {
             case 'disconnected':
-                if(userConnected){
+                if (userConnected) {
                     element.classList.add("d-none");
                 }
                 break;
             case 'connected':
-                if(!userConnected){
+                if (!userConnected) {
                     element.classList.add("d-none");
                 }
                 break;
             case 'admin':
-                if(!userConnected  || role != "admin"){
+                if (!userConnected || role != "admin") {
                     element.classList.add("d-none");
                 }
                 break;
-            case 'client':
-                if(!userConnected  || role != "client"){
+            case 'employe':
+                if (!userConnected || role != "employe") {
+                    element.classList.add("d-none");
+                }
+                break;
+            case 'passager':
+                if (!userConnected || role != "passager") {
+                    element.classList.add("d-none");
+                }
+                break;
+            case 'conducteur':
+                if (!userConnected || role != "conducteur") {
                     element.classList.add("d-none");
                 }
                 break;
@@ -96,12 +100,12 @@ function showAndHideElementsForRoles() {
 }
 
 //fonction pour rediriger un utilisateur non connecter a se connecter pour effectuer une l'action 
-function accesse(event){
+function accesse(event) {
     if (!isConnected()) {
         alert("Veuillez vous connecter ou créer un compte !")
         window.location.replace("signin");
     } else {
         // Si l'utilisateur est connecté, on laisse la redirection normale
-        window.location.href = "/suggest";
+        event.preventDefault();
     }
 }

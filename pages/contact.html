@@ -6,14 +6,14 @@
         <div class="row">
             <!-- Formulaire de contact -->
             <div class="col-md-6">
-                <form id="contactForm" onsubmit="validerFormulaire(event)">
+                <form id="contactForm" >
                     <div class="mb-3">
                         <label for="nom" class="form-label">Nom</label>
-                        <input type="text" class="form-control" id="nom" placeholder="Votre nom">
+                        <input type="text" class="form-control" id="nom" placeholder="Votre nom" autocomplete="given-name">
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Votre email">
+                        <input type="email" class="form-control" id="email" placeholder="Votre email" autocomplete="email" >
                     </div>
                     <div class="mb-3">
                         <label for="sujet" class="form-label">Sujet</label>
@@ -23,7 +23,7 @@
                         <label for="message" class="form-label">Message</label>
                         <textarea class="form-control" id="message" rows="4" placeholder="Votre message"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Envoyer</button>
+                    <button type="submit" class="btn btn-primary w-100" id="btn-submit">Envoyer</button>
                 </form>
             </div>
 

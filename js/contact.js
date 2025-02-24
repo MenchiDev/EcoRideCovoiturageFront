@@ -3,7 +3,9 @@ const inputNom = document.getElementById("nom");
 const inputEmail = document.getElementById("email");
 const inputSujet = document.getElementById("sujet");
 const inputMessage = document.getElementById("message");
-const btnEnvoyer = document.querySelector("#contactForm button[type='submit']"); // Sélection du bouton "Envoyer"
+const btnEnvoyer = document.getElementById("btn-submit"); // Sélection du bouton "Envoyer"
+const contactForm = document.getElementById("contactForm");
+
 
 // Ajout d'un écouteur d'événement sur les champs du formulaire (à chaque frappe de touche)
 inputNom.addEventListener("keyup", validateForm);
@@ -19,7 +21,11 @@ function validateForm() {
     const messageOK = validateRequierd(inputMessage);
 
     // Active ou désactive le bouton de validation en fonction de la validité du formulaire
-    btnEnvoyer.disabled = !(nomOK && mailOK && sujetOK && messageOK);
+    if (nomOK && sujetOK && mailOK && messageOK){
+       btnEnvoyer.disabled = false;
+    }else{
+        btnEnvoyer.disabled = true;
+    }
 }
 
 // Fonction permettant de valider l'email de l'utilisateur
@@ -53,17 +59,24 @@ function validateRequierd(input) {
     }
 }
 
-
-// Gestion de la soumission du formulaire (avec validation finale)
-document.getElementById("contactForm").addEventListener("submit", function(event) {
+contactForm.addEventListener("submit", function(event) {
     event.preventDefault(); // Empêche la soumission par défaut
 
-    if (validateForm()) { // Si le formulaire est valide
+    // Vérifier à nouveau si tous les champs sont valides
+    const nomOK = validateRequierd(inputNom);
+    const mailOK = validateMail(inputEmail);
+    const sujetOK = validateRequierd(inputSujet);
+    const messageOK = validateRequierd(inputMessage);
+
+    if (nomOK && mailOK && sujetOK && messageOK) { // Vérification correcte
         alert("Votre message a été envoyé avec succès !");
         this.reset(); // Réinitialise le formulaire
         btnEnvoyer.disabled = true; // Désactive le bouton après l'envoi
     }
 });
+
+
+
 
 // Désactiver le bouton au chargement de la page (pour éviter qu'il soit actif avant la première saisie)
 window.addEventListener('DOMContentLoaded', (event) => {

@@ -33,6 +33,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-primary" href="contact">Contact</a>
                         </li>
+                        <li class="nav-item" data-show="passager" data-show="conducteur">
+                            <a class="nav-link text-primary" href="/profile">Mon compte</a>
+                        </li>
+                        <li class="nav-item" data-show="employe" >
+                            <a class="nav-link text-primary" href="/employe">Espace employe</a>
+                        </li>
                         <li class="nav-item" data-show="disconnected">
                             <a class="nav-link text-primary" href="/signin">Connexion</a>
                         </li>
@@ -44,7 +50,7 @@
             </div>
         </nav>
         <!-- Sous-navbar spécifique aux trajets -->
-<nav class="navbar navbar-expand navbat-light bg-light d-flex justify-content-center" data-show="connected">
+<nav class="navbar navbar-expand navbat-light bg-light d-flex justify-content-center" data-show="conducteur" data-show="passager">
     <div class="container ">
         <ul class="navbar-nav mx-auto">
             <li class="nav-item ">
