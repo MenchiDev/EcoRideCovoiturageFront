@@ -11,7 +11,7 @@ export const allRoutes = [
     new Route("/signup", "inscription", "/pages/auth/signup.html",["disconnected"], "/js/auth/signup.js"),
     new Route("/contact", "contact", "/pages/contact.html",[], "/js/contact.js"),
     new Route("/announcement", "mes annonces", "/pages/announcements/announcement.html", ["conducteur"]),
-    new Route("/profile", "mon compte ","/pages/profile.html", ["passager","conducteur"], "/js/profile.js"),
+    new Route("/profile", "mon compte ","/pages/profile.html", ["connected"], "/js/profile.js"),
     new Route("/employe", "espace employe", "/pages/employe.html", ["employe"], "/js/employe.js"),
 ];
 
