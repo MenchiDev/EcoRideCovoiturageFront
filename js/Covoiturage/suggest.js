@@ -1,115 +1,163 @@
-// === Sélection des éléments du formulaire ===
-const form = document.getElementById("tripForm");
-const departureInput = document.getElementById("departure");
-const destinationInput = document.getElementById("destination");
-const dateTimeInput = document.getElementById("dateTime");
-const durationHoursInput = document.getElementById("durationHours");
-const durationMinutesInput = document.getElementById("durationMinutes");
-const priceInput = document.getElementById("price");
-const seatsInput = document.getElementById("seats");
-const ecoTripInput = document.getElementById("ecoTrip");
-const submitButton = document.querySelector("#tripForm button[type='submit']"); // Sélection du bouton de soumission
-const successModal = new bootstrap.Modal(document.getElementById('successModal')); // Modal de succès
+window.initSuggestScript = function () {
+    console.log("Script suggest.js chargé ✔");
 
-// === Sélection des éléments pour la gestion des crédits ===
-const creditCountElem = document.getElementById("credit-count");
-let credits = parseInt(creditCountElem.innerText);  // Initialiser les crédits à partir de l'affichage actuel
+    const tripForm = document.getElementById("tripForm");
+    const carSelect = document.getElementById("carSelect");
+    const apiToken = getCookie("accesstoken");
+    const creditCountSpan = document.getElementById("credit-count"); // Récupération de l'élément pour afficher les crédits
+    let currentVehicles = [];
+    const carpoolUrl = "http://127.0.0.1:8000/api/carpool/new"; // URL de votre API pour ajouter un trajet
 
-// === Fonction pour mettre à jour l'affichage des crédits ===
-function updateCredits() {
-    creditCountElem.innerText = credits;
-}
 
-// === Fonction principale de validation du formulaire ===
-function validateForm() {
-    // Validation de chaque champ du formulaire
-    const departureOK = validateRequired(departureInput);
-    const destinationOK = validateRequired(destinationInput);
-    const dateTimeOK = validateRequired(dateTimeInput);
-    const durationHoursOK = validateRequired(durationHoursInput);
-    const durationMinutesOK = validateRequired(durationMinutesInput);
-    const priceOK = validateNumber(priceInput);
-    const seatsOK = validateNumber(seatsInput);
-
-    // Activer ou désactiver le bouton de soumission en fonction de la validité du formulaire
-    submitButton.disabled = !(departureOK && destinationOK && dateTimeOK && durationHoursOK && durationMinutesOK && priceOK && seatsOK);
-}
-
-// === Validation des champs requis ===
-function validateRequired(input) {
-    return toggleValidationClass(input, input.value.trim() !== "");
-}
-
-// === Validation des champs numériques (Prix, Places) ===
-function validateNumber(input) {
-    const num = Number(input.value);
-    return toggleValidationClass(input, !isNaN(num) && num > 0); // Vérification si c'est un nombre valide et supérieur à 0
-}
-
-// === Fonction pour gérer les classes Bootstrap is-valid / is-invalid ===
-function toggleValidationClass(input, isValid) {
-    input.classList.toggle("is-valid", isValid);
-    input.classList.toggle("is-invalid", !isValid);
-    return isValid;
-}
-
-// === Gestion de la soumission du formulaire ===
-form.addEventListener("submit", function (event) {
-    event.preventDefault(); // Empêcher la soumission par défaut du formulaire
-
-    validateForm(); // Validation finale avant soumission
-
-    if (submitButton.disabled) {
-        return; // Ne pas soumettre si le formulaire est invalide
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+        return null;
     }
 
-    // === Vérification des crédits ===
-    if (credits >= 2) {
-        // Déduire 2 crédits pour proposer un trajet
-        credits -= 2;
-        updateCredits(); // Mise à jour de l'affichage des crédits
-
-        // Récupérer les valeurs des champs du formulaire
-        const departure = departureInput.value;
-        const destination = destinationInput.value;
-        const dateTime = dateTimeInput.value;
-        const durationHours = durationHoursInput.value;
-        const durationMinutes = durationMinutesInput.value;
-        const price = priceInput.value;
-        const seats = seatsInput.value;
-        const ecoTrip = ecoTripInput.checked;
-
-        // Ici, vous pouvez envoyer les données au serveur (ex : fetch, XMLHttpRequest)
-        console.log({ departure, destination, dateTime, durationHours, durationMinutes, price, seats, ecoTrip });
-
-        // Afficher le modal de succès
-        successModal.show();
-
-        // Réinitialiser le formulaire après soumission réussie
-        form.reset();
-
-        // Supprimer les classes de validation après la soumission
-        [departureInput, destinationInput, dateTimeInput, durationHoursInput, durationMinutesInput, priceInput, seatsInput].forEach(input => {
-            input.classList.remove("is-valid", "is-invalid");
+    function displayVehicles(vehicles) {
+        carSelect.innerHTML = '<option value="">Sélectionner un véhicule</option>';
+        vehicles.forEach(vehicle => {
+            const option = document.createElement("option");
+            option.value = vehicle.id; // Utiliser l'ID de la voiture, pas l'immatriculation
+            const brand = vehicle.brand?.label || "Marque inconnue";
+            const model = vehicle.model || "Modèle inconnu";
+            const reg = vehicle.registrationNumber || ""; // Garder l'immatriculation pour l'affichage
+            option.textContent = `${brand} ${model} - ${reg}`;
+            carSelect.appendChild(option);
         });
-
-        submitButton.disabled = true; // Désactiver le bouton après soumission
-    } else {
-        alert("Vous n'avez pas assez de crédits pour publier un trajet."); // Alerte si pas assez de crédits
     }
-});
 
-// === Ajout d'écouteurs d'événements pour chaque champ de formulaire ===
-[departureInput, destinationInput, dateTimeInput, durationHoursInput, durationMinutesInput, priceInput, seatsInput].forEach(input => {
-    input.addEventListener("input", validateForm); // Validation en temps réel lors de la saisie
-});
+    async function fetchUserVehicles() {
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/car", {
+                headers: {
+                    "Authorization": apiToken,
+                    "Content-Type": "application/json"
+                }
+            });
 
-// === Désactivation du bouton au chargement de la page ===
-document.addEventListener('DOMContentLoaded', function() {
-    submitButton.disabled = true; // Désactiver le bouton de soumission dès le début
-});
+            if (!response.ok) {
+                console.error("Erreur API véhicules:", response.status);
+                return;
+            }
 
-// === Écouteur d'événement pour fermer le modal (facultatif) ===
-// document.getElementById('successModal').addEventListener('hidden.bs.modal', function () {
-//     // Actions à effectuer après la fermeture du modal, par exemple une redirection
-// });
+            const contentType = response.headers.get("content-type");
+            if (!contentType?.includes("application/json")) {
+                console.error("Réponse non-JSON.");
+                return;
+            }
+
+            const data = await response.json();
+            currentVehicles = data;
+           
+            displayVehicles(data);
+        } catch (err) {
+            console.error("Erreur réseau:", err);
+        }
+    }
+
+    async function fetchUserCredits() {
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/credits", { // Assurez-vous que cette URL est correcte
+                headers: {
+                    "Authorization": apiToken,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (!response.ok) {
+                console.error("Erreur API crédits:", response.status);
+                return;
+            }
+            const data = await response.json();
+             if (creditCountSpan) {
+                creditCountSpan.textContent = data.credits; // Mettre à jour l'affichage des crédits
+             }
+
+        } catch (error) {
+            console.error("Erreur lors de la récupération des crédits:", error);
+        }
+    }
+
+
+    async function submitTripForm(event) {
+        event.preventDefault();
+
+        const carId = carSelect.value;
+        const departureLocation = document.getElementById("departure").value;
+        const arrivalLocation = document.getElementById("destination").value;
+        const dateTimeInput = document.getElementById("dateTime").value;
+        const arrivalDateTimeInput = document.getElementById("arrivalDateTime").value;
+        const price = document.getElementById("price").value;
+        const seats = document.getElementById("seats").value;
+        const ecoTrip = document.getElementById("ecoTrip").checked;
+        const status = "prévu"; // Vous pouvez définir un statut par défaut
+
+        if (!carId) {
+            alert("Veuillez sélectionner une voiture.");
+            return;
+        }
+
+        const departureDate = dateTimeInput.split("T")[0];
+        const departureTime = dateTimeInput.split("T")[1];
+        const arrivalDate = arrivalDateTimeInput.split("T")[0];
+        const arrivalTime = arrivalDateTimeInput.split("T")[1];
+
+
+        const tripData = {
+            car_id: parseInt(carId), // Important : envoyer l'ID de la voiture
+            departureDate: departureDate,
+            departureTime: departureTime,
+            departureLocation: departureLocation,
+            arrivalDate: arrivalDate,
+            arrivalTime: arrivalTime,
+            arrivalLocation: arrivalLocation,
+            status: status,
+            availableSeats: parseInt(seats),
+            price: parseFloat(price)
+        };
+
+        try {
+            const response = await fetch(carpoolUrl, {
+                method: "POST",
+                headers: {
+                    "Authorization": apiToken,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(tripData)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error("Erreur lors de la création du trajet:", errorData);
+                alert("Erreur lors de la création du trajet: " + (errorData.message || "Erreur inconnue"));
+                return;
+            }
+
+            const responseData = await response.json();
+            console.log("Trajet créé avec succès:", responseData);
+            alert("Trajet créé avec succès !");
+            fetchUserCredits(); // Mettre à jour les crédits après la création du trajet
+            tripForm.reset(); // Réinitialiser le formulaire
+        } catch (error) {
+            console.error("Erreur réseau:", error);
+            alert("Erreur réseau: " + error.message);
+        }
+    }
+
+    // Initialisation
+   
+        fetchUserVehicles();
+    
+    fetchUserCredits(); // Récupérer et afficher les crédits au chargement de la page
+
+    tripForm.addEventListener("submit", submitTripForm);
+};
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", window.initSuggestScript);
+} else {
+    window.initSuggestScript();
+}

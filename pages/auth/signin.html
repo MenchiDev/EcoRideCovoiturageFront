@@ -7,17 +7,17 @@
 <div class="container ">
     <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8 col-10">
-            <form class="border rounded p-4 bg-light ">
+            <form id="signinForm" class="border rounded p-4 bg-light ">
                 <div class="mb-3 ">
                     <label for="EmailInput" class="form-label">Email</label>
-                    <input type="email" class="form-control form-input" id="EmailInput" placeholder="test@mail.fr" name="Email">
+                    <input type="email" class="form-control form-input" id="EmailInput" placeholder="test@mail.fr" name="email">
                     <div class="invalid-feedback">
-                        Veuillez saisir une adresse email valide.
+                       Le mail et le mot de passe ne correspondent pas
                     </div>
                 </div>
                 <div class="mb-3 ">
                     <label for="PasswordInput" class="form-label">Mot de passe</label>
-                    <input type="password" class="form-control form-input" id="PasswordInput" name="Password">
+                    <input type="password" class="form-control form-input" id="PasswordInput" name="password">
                 </div>
                 <div class="text-center ">
                     <button type="button" class="btn btn-primary rounded" id = "btnSignin">Connexion</button>

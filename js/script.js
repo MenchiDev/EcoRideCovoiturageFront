@@ -24,9 +24,9 @@ function getToken() {
 }
 
 function setCookie(name, value, days) {
-    var expires = "";
+    let expires = "";
     if (days) {
-        var date = new Date();
+        let date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         expires = "; expires=" + date.toUTCString();
     }
@@ -34,12 +34,12 @@ function setCookie(name, value, days) {
 }
 
 function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    let nameEQ = name + "=";
+    let ca = document.cookie.split(';');
+    for (const element of ca) {
+        let c = element;
+        while (c.startsWith(' ')) c = c.substring(1, c.length);
+        if (c.startsWith(nameEQ)) return c.substring(nameEQ.length, c.length);
     }
     return null;
 }
@@ -47,13 +47,9 @@ function getCookie(name) {
 function eraseCookie(name) {
     document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
+// Fonction pour vérifier si l'utilisateur est connecté
 function isConnected() {
-    if (getToken() == null || getToken == undefined) {
-        return false;
-    }
-    else {
-        return true;
-    }
+    return !(getToken() == null || getToken == undefined);
 }
 
 function showAndHideElementsForRoles() {
@@ -99,7 +95,7 @@ function showAndHideElementsForRoles() {
     })
 }
 
-//fonction pour rediriger un utilisateur non connecter a se connecter pour effectuer une l'action 
+//fonction pour rediriger un utilisateur non connecter a se connecter pour effectuer une action 
 function accesse(event) {
     if (!isConnected()) {
         alert("Veuillez vous connecter ou créer un compte !")
@@ -109,3 +105,4 @@ function accesse(event) {
         event.preventDefault();
     }
 }
+

@@ -204,7 +204,6 @@ body {
   text-align: var(--bs-body-text-align);
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
@@ -429,7 +428,6 @@ caption {
 th {
   text-align: inherit;
   text-align: -webkit-match-parent;
-  text-align: match-parent;
 }
 
 thead,
@@ -12101,6 +12099,28 @@ article .welcome p {
 
 .img {
   opacity: 0.8;
+}
+
+/*details */
+.rating-star {
+  color: gold;
+}
+
+.review-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.review-author {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.review-rating {
+  color: gold;
+  font-size: 1.2em;
 }
 
 /*  Sur mobile : Passage en colonne de la barre de recherche  icône collée à l'input et ajustement de la taille du text*/

@@ -1,164 +1,243 @@
-// ==============================
-// 1️⃣ Sélection des éléments HTML
-// ==============================
-const roleSelect = document.getElementById("role");
-const vehiculeSection = document.getElementById("vehicule-section");
-const creditInfoSection = document.getElementById("credit-info-section");
-const vehiculeSelect = document.getElementById("vehicule");
-const addVehiculeBtn = document.getElementById("add-vehicule-btn");
-const addVehiculeSection = document.getElementById("add-vehicule-section");
-const vehiculeMarque = document.getElementById("vehicule-marque");
-const vehiculeModele = document.getElementById("vehicule-modele");
-const vehiculeImmatriculation = document.getElementById("vehicule-immatriculation");
-const vehiculeDate = document.getElementById("vehicule-date");
-const vehiculeCouleur = document.getElementById("vehicule-couleur");
-const publishBtn = document.getElementById("publish-btn");
+// Initialisation du script une fois le DOM chargé
+window.initProfileScript = function () {
+    console.log("✅ Script profile.js chargé");
 
-// Sélection des éléments pour l'historique
-const reservationHistory = document.getElementById("reservation-history");
-const publicationHistory = document.getElementById("publication-history");
+    // ======= DOM Elements =======
+    const roleSelect = document.getElementById("role");
+    const vehiculeSection = document.getElementById("vehicule-section");
+    const publishBtn = document.getElementById("publish-btn");
+    const creditInfo = document.getElementById("credit-info-section");
+    const addVehiculeBtn = document.getElementById("add-vehicule-btn");
+    const addVehiculeSection = document.getElementById("add-vehicule-section");
+    const cancelVehiculeBtn = document.getElementById("cancel-vehicule-btn");
+    const saveVehiculeBtn = document.getElementById("save-vehicule-btn");
+    const vehiculeSelect = document.getElementById("vehicule");
+    const immatriculationError = document.getElementById("immatriculation-error");
+    const vehiculeDetails = document.getElementById("vehicule-details");
+    const publicationHistory = document.getElementById("publication-history");
 
-// ==============================
-// 2️⃣ Chargement des données stockées
-// ==============================
-document.addEventListener("DOMContentLoaded", () => {
-    loadSavedRole();  // Charger le rôle enregistré
-    loadHistory();    // Charger l'historique des trajets
-});
+    // ======= Variables =======
+    let currentVehicles = [];
 
-// ==============================
-// 3️⃣ Fonction pour charger le rôle enregistré
-// ==============================
-function loadSavedRole() {
-    const savedRole = localStorage.getItem("userRole");
-    if (savedRole) {
-        roleSelect.value = savedRole;
-        updateUIBasedOnRole(savedRole);
+    // ======= Utils =======
+
+    // Récupère le token d'authentification depuis les cookies
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        return parts.length === 2 ? parts.pop().split(';').shift() : null;
     }
-}
 
-// ==============================
-// 4️⃣ Gestion du changement de rôle
-// ==============================
-roleSelect.addEventListener("change", () => {
-    const role = roleSelect.value;
+    const apiToken = getCookie('accesstoken');
+
+    // ======= API Calls =======
+
+    // Récupère la liste des véhicules de l'utilisateur
+    async function fetchUserVehicles() {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/car', {
+                headers: {
+                    'Authorization': apiToken,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                if (response.status === 404) displayVehicles([]);
+                return;
+            }
+
+            const data = await response.json();
+            currentVehicles = data;
+            displayVehicles(data);
+        } catch (error) {
+            console.error("❌ Erreur lors du fetch des véhicules:", error);
+        }
+    }
+
+    // Récupère les trajets publiés par l'utilisateur
+    async function fetchUserPublishedTrips() {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/carpool/my', {
+                headers: {
+                    'Authorization': apiToken,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                console.error("❌ Erreur lors de la récupération des trajets.");
+                return;
+            }
+
+            const data = await response.json();
+            displayPublishedTrips(data);
+        } catch (error) {
+            console.error("❌ Erreur réseau lors du fetch des trajets publiés:", error);
+        }
+    }
+
+    // Ajoute un nouveau véhicule
+    async function addNewVehicle(vehicleData) {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/car/new', {
+                method: 'POST',
+                headers: {
+                    'Authorization': apiToken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(vehicleData),
+            });
+
+            const responseText = await response.text();
+
+            if (response.ok) {
+                immatriculationError.classList.add("d-none");
+                await fetchUserVehicles();
+                resetVehiculeForm();
+                addVehiculeSection.classList.add("d-none");
+                vehiculeSection.style.display = "block";
+                publishBtn.disabled = false;
+            } else {
+                if (response.status === 409 && responseText.includes("existe déjà")) {
+                    immatriculationError.classList.remove("d-none");
+                } else {
+                    console.error("❌ Erreur API:", response.status, responseText);
+                }
+            }
+        } catch (error) {
+            console.error("❌ Erreur réseau lors de l'ajout du véhicule:", error);
+        }
+    }
+
+    // ======= UI Display Functions =======
+
+    // Affiche la liste des véhicules dans le select
+    function displayVehicles(vehicles) {
+        vehiculeSelect.innerHTML = '<option value="">Sélectionner un véhicule</option>';
+
+        vehicles.forEach(vehicle => {
+            const option = document.createElement("option");
+            const brand = vehicle.brand?.label || "Marque inconnue";
+            const model = vehicle.model || "Modèle inconnu";
+            const reg = vehicle.registrationNumber || "";
+
+            option.value = reg;
+            option.textContent = `${brand} ${model} - ${reg}`;
+            vehiculeSelect.appendChild(option);
+        });
+    }
+
+    // Affiche la liste des trajets publiés par l'utilisateur
     
-    // Sauvegarde du rôle sélectionné dans localStorage
-    localStorage.setItem("userRole", role);
+    function displayPublishedTrips(trips) {
+        publicationHistory.innerHTML = trips.length === 0
+            ? '<li class="list-group-item text-muted">Aucun trajet publié.</li>'
+            : '';
+    
+        trips.forEach(trip => {
+            const tripItem = document.createElement("li");
+            tripItem.classList.add("list-group-item");
+    
+            // Formatage des dates (jour/mois/année)
+            const departureDate = new Date(trip.departureDate).toLocaleDateString('fr-FR');
+            const arrivalDate = new Date(trip.arrivalDate).toLocaleDateString('fr-FR');
+    
+            // Extraire HH:mm depuis "1970-01-01T23:31"
+            const formatTimeFromISO = (isoStr) => {
+                if (!isoStr) return '';
+                const match = isoStr.match(/T(\d{2}:\d{2})/);
+                return match ? match[1] : '';
+            };
+    
+            const departureTime = formatTimeFromISO(trip.departureTime);
+            const arrivalTime = formatTimeFromISO(trip.arrivalTime);
+    
+            tripItem.innerHTML = `
+                <strong>${trip.departureLocation} → ${trip.arrivalLocation}</strong><br>
+                <span>Départ : ${departureDate} à ${departureTime}</span><br>
+                <span>Arrivée : ${arrivalDate} à ${arrivalTime}</span><br>
+                <small>Places restantes : ${trip.availableSeats}</small>
+            `;
+    
+            publicationHistory.appendChild(tripItem);
+        });
+    }
+    
 
-    updateUIBasedOnRole(role);
-});
+    // Réinitialise le formulaire d'ajout de véhicule
+    function resetVehiculeForm() {
+        document.getElementById("vehicule-marque").value = "";
+        document.getElementById("vehicule-modele").value = "";
+        document.getElementById("vehicule-immatriculation").value = "";
+        document.getElementById("vehicule-couleur").value = "";
+        immatriculationError.classList.add("d-none");
+    }
 
-// Fonction qui met à jour l'UI en fonction du rôle choisi
-function updateUIBasedOnRole(role) {
-    if (role === "chauffeur" || role === "chauffeur-passager") {
-        vehiculeSection.style.display = "block";
-        creditInfoSection.style.display = "block";
-    } else {
+    // ======= Event Listeners =======
+
+    // Affiche les détails du véhicule sélectionné
+    vehiculeSelect.addEventListener("change", () => {
+        const selected = currentVehicles.find(v => v.registrationNumber === vehiculeSelect.value);
+
+        if (selected) {
+            vehiculeDetails.innerHTML = `
+                <strong>Marque:</strong> ${selected.brand?.label || "Inconnue"}<br>
+                <strong>Modèle:</strong> ${selected.model || "Inconnu"}<br>
+                <strong>Immatriculation:</strong> ${selected.registrationNumber}<br>
+                <strong>Couleur:</strong> ${selected.color || "Non précisé"}
+            `;
+            vehiculeDetails.classList.remove("d-none");
+        } else {
+            vehiculeDetails.innerHTML = "";
+            vehiculeDetails.classList.add("d-none");
+        }
+    });
+
+    // Affiche les champs pour ajouter un véhicule selon le rôle
+    roleSelect.addEventListener("change", () => {
+        const role = roleSelect.value;
+
+        vehiculeSection.style.display = (role === "chauffeur" || role === "chauffeur-passager") ? "block" : "none";
+        creditInfo.style.display = (role === "chauffeur" || role === "chauffeur-passager") ? "block" : "none";
+        publishBtn.disabled = role === "";
+    });
+
+    // Affiche le formulaire d'ajout de véhicule
+    addVehiculeBtn.addEventListener("click", () => {
+        addVehiculeSection.classList.remove("d-none");
         vehiculeSection.style.display = "none";
-        creditInfoSection.style.display = "none";
-    }
-
-    validateForm(); // Vérifie si le formulaire est valide
-}
-
-// ==============================
-// 5️⃣ Vérification du formulaire pour activer/désactiver "Publier"
-// ==============================
-function validateForm() {
-    if ((roleSelect.value === "chauffeur" || roleSelect.value === "chauffeur-passager") && vehiculeSelect.value !== "") {
-        publishBtn.disabled = false;
-    } else {
         publishBtn.disabled = true;
-    }
-}
+    });
 
-// ==============================
-// 6️⃣ Gestion de l'ajout d'un véhicule
-// ==============================
-addVehiculeBtn.addEventListener("click", () => {
-    addVehiculeSection.classList.toggle("d-none"); // Affiche ou cache la section d'ajout
-});
-
-document.getElementById("save-vehicule-btn").addEventListener("click", () => {
-    const marque = vehiculeMarque.value.trim();
-    const modele = vehiculeModele.value.trim();
-    const immatriculation = vehiculeImmatriculation.value.trim();
-    const date = vehiculeDate.value;
-    const couleur = vehiculeCouleur.value.trim();
-
-    if (marque && modele && immatriculation && couleur) {
-        const newVehicule = `${marque} ${modele} (${immatriculation}, ${date}, ${couleur})`;
-
-        // Ajouter à la liste déroulante
-        const option = document.createElement("option");
-        option.value = newVehicule;
-        option.textContent = newVehicule;
-        vehiculeSelect.appendChild(option);
-        vehiculeSelect.value = newVehicule;
-
-        // Réinitialisation du formulaire
-        vehiculeMarque.value = "";
-        vehiculeModele.value = "";
-        vehiculeImmatriculation.value = "";
-        vehiculeDate.value = "";
-        vehiculeCouleur.value = "";
+    // Annule l'ajout de véhicule
+    cancelVehiculeBtn.addEventListener("click", () => {
+        resetVehiculeForm();
         addVehiculeSection.classList.add("d-none");
+        vehiculeSection.style.display = "block";
+        publishBtn.disabled = false;
+    });
 
-        validateForm(); // Vérifie si on peut activer "Publier"
-    }
-});
+    // Enregistre un nouveau véhicule
+    saveVehiculeBtn.addEventListener("click", () => {
+        const newVehicule = {
+            registrationNumber: document.getElementById("vehicule-immatriculation").value.trim().toUpperCase(),
+            brand: { label: document.getElementById("vehicule-marque").value.trim() },
+            model: document.getElementById("vehicule-modele").value.trim(),
+            color: document.getElementById("vehicule-couleur").value.trim(),
+            fueltype: '', // champ vide si non utilisé
+        };
+        addNewVehicle(newVehicule);
+    });
 
-document.getElementById("cancel-vehicule-btn").addEventListener("click", () => {
-    addVehiculeSection.classList.add("d-none");
-});
+    // ======= Initialisation =======
+    fetchUserVehicles();
+    fetchUserPublishedTrips();
+};
 
-// ==============================
-// 7️⃣ Gestion de l'historique des trajets
-// ==============================
-
-// Fonction pour charger l'historique
-function loadHistory() {
-    const reservations = JSON.parse(localStorage.getItem("reservations")) || [];
-    const publications = JSON.parse(localStorage.getItem("publications")) || [];
-
-    // Afficher l'historique des réservations
-    reservationHistory.innerHTML = reservations.length 
-        ? reservations.map(trajet => `<li class="list-group-item">${trajet}</li>`).join("")
-        : '<li class="list-group-item text-muted">Aucune réservation effectuée.</li>';
-
-    // Afficher l'historique des publications
-    publicationHistory.innerHTML = publications.length 
-        ? publications.map(trajet => `<li class="list-group-item">${trajet}</li>`).join("")
-        : '<li class="list-group-item text-muted">Aucun trajet publié.</li>';
+// Lancement du script au bon moment
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', window.initProfileScript);
+} else {
+    window.initProfileScript();
 }
-
-// Fonction pour ajouter une réservation
-function addReservation(trajet) {
-    let reservations = JSON.parse(localStorage.getItem("reservations")) || [];
-    reservations.push(trajet);
-    localStorage.setItem("reservations", JSON.stringify(reservations));
-    loadHistory(); // Met à jour l'affichage
-}
-
-// Fonction pour ajouter une publication
-function addPublication(trajet) {
-    let publications = JSON.parse(localStorage.getItem("publications")) || [];
-    publications.push(trajet);
-    localStorage.setItem("publications", JSON.stringify(publications));
-    loadHistory(); // Met à jour l'affichage
-}
-
-// ==============================
-// 8️⃣ Gestion du bouton "Publier un trajet"
-// ==============================
-publishBtn.addEventListener("click", () => {
-    const role = roleSelect.value;
-    const vehicule = vehiculeSelect.value;
-
-    if (role === "chauffeur" || role === "chauffeur-passager") {
-        const trajetInfo = `Trajet publié en tant que ${role} avec le véhicule ${vehicule}`;
-        addPublication(trajetInfo);
-        alert("Votre trajet a été publié !");
-    }
-});

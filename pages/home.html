@@ -1,69 +1,114 @@
+<!-- home.html -->
 <div class="hero-scene text-center text-white">
-
     <div class="hero-scene-content">
         <h1>Un trajet partagé une empreinte réduite et des économies garanties !</h1>
     </div>
 </div>
-<section class="container-fluid ">
+
+<section class="container-fluid">
     <article>
         <div class="container text-primary welcome">
-            <h2>
-                Bienvenue sur EcoRide
-            </h2>
-            <p>🚀 Prêt à rejoindre le mouvement ? Trouvez votre prochain trajet en quelques clics et roulez vers un
-                avenir plus vert !</p>
+            <h2>Bienvenue sur EcoRide</h2>
+            <p>🚀 Prêt à rejoindre le mouvement ? Trouvez votre prochain trajet en quelques clics et roulez vers un avenir plus vert !</p>
         </div>
     </article>
-    <form class="container ">
-            <div class="search-bar  rounded ">
 
-                <!-- Champ de départ -->
-                <div class="input-group ">
-                    <span class="input-group-text rounded-start">
-                        <i class="bi bi-geo-alt text-primary"></i>
-                    </span>
-                    <input type="text" class="form-control radius" placeholder="Départ">
-                </div>
-
-                <!-- Champ de destination -->
-                <div class="input-group">
-                    <span class="input-group-text">
-                        <i class="bi bi-geo-alt-fill text-primary"></i>
-                    </span>
-                    <input type="text" class="form-control radius" placeholder="Destination">
-                </div>
-
-                <!-- Sélecteur de date avec label -->
-                <div class="input-group">
-                    <label for="date-input" class="input-group-text">
-                        <i class="bi bi-calendar"></i>
-                    </label>
-                    <input type="date" id="date-input" class="form-control date-input" title="Sélectionnez une date">
-                </div>
-
-                <!-- Bouton de recherche -->
-                <button type="submit" class="btn btn-primary btn-modified">
-                    <i class="bi bi-search"></i> Rechercher
-                </button>
+    <form id="formHome" class="container">
+        <div class="search-bar rounded">
+            <div class="input-group">
+                <span class="input-group-text rounded-start">
+                    <i class="bi bi-geo-alt text-primary"></i>
+                </span>
+                <input type="text" class="form-control radius" placeholder="Départ" name="departure">
             </div>
+            <div class="input-group">
+                <span class="input-group-text">
+                    <i class="bi bi-geo-alt-fill text-primary"></i>
+                </span>
+                <input type="text" class="form-control radius" placeholder="Destination" name="destination">
+            </div>
+            <div class="input-group">
+                <label for="date-input" class="input-group-text">
+                    <i class="bi bi-calendar"></i>
+                </label>
+                <label for="date-input" class="visually-hidden">Date de départ</label>
+                <input type="date" id="date-input" class="form-control date-input" name="date" title="Sélectionnez une date de départ" placeholder="Date de départ">
+            </div>
+            <button type="button" id="searchButton" class="btn btn-primary btn-modified">
+                <i class="bi bi-search"></i> Rechercher
+            </button>
+        </div>
     </form>
+
+    <div class="container text-center pb-3">
+        <h4>Vous êtes conducteur ?</h4>
+        <button type="button" class="btn btn-success rounded" id="btnAnnonce" onclick="location.href='/suggest'">Publier un trajet</button>
+    </div>
+
+    <!-- Modal de filtres -->
+    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filterModalLabel">Filtres</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Prix maximum</label>
+                            <input type="number" class="form-control" placeholder="Ex : 50">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Durée maximale du voyage</label>
+                            <div class="d-flex">
+                                <input type="number" class="form-control me-2" placeholder="Heures" min="0">
+                                <input type="number" class="form-control" placeholder="Minutes" min="0" max="59">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Note minimale du conducteur</label>
+                            <input type="number" class="form-control" step="0.1" min="1" max="5" placeholder="Ex : 4.5">
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="ecologique">
+                            <label class="form-check-label" for="ecologique">Voyage écologique (voiture électrique)</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Appliquer les filtres</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Résultats -->
+    <div class="row justify-content-center bg-secondary pt-4" id="result">
+        <div class="container text-center" id="filter-button-container" style="display: none;">
+            <button type="button" class="btn mb-3 bg-primary text-white" data-bs-toggle="modal" data-bs-target="#filterModal">
+                Filtrer les Résultats
+            </button>
+        </div>
+        <div id="search-results" class="container row justify-content-center mt-4"></div>
+
+
+    </div>
+
+    <!-- Sections informatives -->
     <article>
         <div class="container pb-5 mobile">
             <div class="row row-cols-2 row-col-sm-1 align-items-center">
                 <div class="col">
-                    <p class="text-justify ">
-                        Bienvenue sur EcoRide, la plateforme de covoiturage pensée pour réduire l’impact environnemental
-                        des
-                        déplacements tout en offrant une solution économique et pratique aux voyageurs. 
+                    <p class="text-justify">
+                        Bienvenue sur EcoRide, la plateforme de covoiturage pensée pour réduire l’impact environnemental des déplacements tout en offrant une solution économique et pratique aux voyageurs.
                     </p>
                 </div>
                 <div class="col d-flex justify-content-end">
-                    <img class="w-75 rounded" src="../images/AccueilSection1.png" alt="EcoRide accueil  image covoiturage" />
+                    <img class="w-75 rounded" src="../images/AccueilSection1.png" alt="EcoRide accueil image covoiturage" />
                 </div>
             </div>
         </div>
     </article>
-    <article >
+    <article>
         <div class="container pb-4 mobile">
             <div class="row row-cols-2 align-items-center">
                 <div class="col">
@@ -71,15 +116,10 @@
                 </div>
                 <div class="col">
                     <p class="text-justify">
-                        Pourquoi choisir EcoRide ?<br>✅ Moins d’émissions de CO₂ : Chaque trajet partagé, c’est une
-                        empreinte
-                        carbone réduite.<br>✅ Plus d’économies : Divisez vos frais de transport en partageant vos trajets.<br>✅
-                        Une
-                        communauté engagée : Voyagez avec des personnes partageant les mêmes valeurs.
+                        Pourquoi choisir EcoRide ?<br>✅ Moins d’émissions de CO₂ : Chaque trajet partagé, c’est une empreinte carbone réduite.<br>✅ Plus d’économies : Divisez vos frais de transport.<br>✅ Une communauté engagée : Voyagez avec des personnes partageant les mêmes valeurs.
                     </p>
                 </div>
             </div>
         </div>
     </article>
-
 </section>

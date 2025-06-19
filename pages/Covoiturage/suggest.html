@@ -2,70 +2,57 @@
     <h2 class="text-center mb-4">Proposer un Trajet</h2>
 
     <form id="tripForm">
+
         <div class="mb-3">
-            <label class="form-label">Point de départ</label>
-            <input type="text" class="form-control" id="departure" placeholder="Ex : Paris" required>
+            <label for="carSelect" class="form-label">Voiture utilisée</label>
+            <select class="form-select" id="carSelect" name="carSelect" required>
+                <option value="">Chargement des voitures...</option>
+            </select>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Destination</label>
-            <input type="text" class="form-control" id="destination" placeholder="Ex : Lyon" required>
+            <label for="departure" class="form-label">Point de départ</label>
+            <input type="text" class="form-control" id="departure" name="departure" placeholder="Ex : Paris" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Date et Heure de départ</label>
-            <input type="datetime-local" class="form-control" id="dateTime" title="Date et Heure de départ"
+            <label for="destination" class="form-label">Destination</label>
+            <input type="text" class="form-control" id="destination" name="destination" placeholder="Ex : Lyon" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="dateTime" class="form-label">Date et Heure de départ</label>
+            <input type="datetime-local" class="form-control" id="dateTime" name="dateTime" title="Date et Heure de départ"
                 placeholder="Sélectionnez la date et l'heure" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Durée du voyage</label>
-            <div class="d-flex">
-                <input type="number" class="form-control me-2" id="durationHours" min="0" placeholder="Heures" required>
-                <input type="number" class="form-control" id="durationMinutes" min="0" max="59" placeholder="Minutes"
-                    required>
-            </div>
+            <label for="arrivalDateTime" class="form-label">Date et Heure d'arrivée</label>
+            <input type="datetime-local" class="form-control" id="arrivalDateTime" name="arrivalDateTime" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Prix par passager (€)</label>
-            <input type="number" class="form-control" id="price" min="1" placeholder="Ex : 25" required>
+            <label for="price" class="form-label">Prix par passager (€)</label>
+            <input type="number" class="form-control" id="price" name="price" min="1" placeholder="Ex : 25" required>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Nombre de places disponibles</label>
-            <input type="number" class="form-control" id="seats" min="1" placeholder="Ex : 3" required>
+            <label for="seats" class="form-label">Nombre de places disponibles</label>
+            <input type="number" class="form-control" id="seats" name="seats" min="1" placeholder="Ex : 3" required>
         </div>
 
         <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" id="ecoTrip">
+            <input class="form-check-input" type="checkbox" id="ecoTrip" name="ecoTrip">
             <label class="form-check-label" for="ecoTrip">Voyage écologique (voiture électrique)</label>
         </div>
 
         <button type="submit" class="btn btn-primary w-100">Proposer le trajet</button>
     </form>
-    <!-- Exemple d'élément pour afficher les crédits -->
-<div class="text-end mt-3 text-center">
-    <strong>Crédits disponibles : <span id="credit-count">10</span> 🔵</strong>
-</div>
-
-</div>
-
-
-<!-- Modal de confirmation -->
-<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="successModalLabel">Trajet Proposé</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Votre trajet a été proposé avec succès !</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-            </div>
-        </div>
+    <div class="text-end mt-3 text-center">
+        <strong>Crédits disponibles : <span id="credit-count">10</span> 🔵</strong>
     </div>
+
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/path/to/your/suggest.js"></script>
